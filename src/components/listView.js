@@ -1,11 +1,11 @@
-export function renderListView(data) {
+export function renderListView(items) {
   const content = document.getElementById('content')
   if (!content) return
 
   content.className = 'list'
   content.innerHTML = ''
 
-  data.forEach(item => {
+  items.forEach(item => {
     const listItem = document.createElement('div')
     listItem.className = 'list-item'
     listItem.innerHTML = `

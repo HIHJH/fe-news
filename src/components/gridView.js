@@ -1,11 +1,11 @@
-export function renderGridView(data) {
+export function renderGridView(items) {
   const content = document.getElementById('content')
   if (!content) return
 
   content.className = 'grid'
   content.innerHTML = ''
 
-  data.forEach(item => {
+  items.forEach(item => {
     const gridItem = document.createElement('li')
     gridItem.className = 'grid-item'
     gridItem.innerHTML = `
