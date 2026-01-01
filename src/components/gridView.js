@@ -13,7 +13,7 @@ export function renderGridView(items) {
     const gridItem = document.createElement('li')
     gridItem.className = 'grid-item'
     gridItem.innerHTML = `
-      <a href="#"><img src="${item.image}" alt="${item.title}" class="grid-item-image"></a>
+      <img src="${item.image}" alt="${item.title}" class="grid-item-image">
     `
     fragment.appendChild(gridItem)
   })
