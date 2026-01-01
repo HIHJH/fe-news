@@ -88,7 +88,7 @@ body {
 }
 
 .tab-left-btn {
-  font-size: var(--font-size-16);
+  font-family: inherit;
   font-weight: 500;
   color: var(--text-default);
   border: none;
@@ -97,7 +97,6 @@ body {
 }
 
 .tab-left-btn.active {
-  font-size: var(--font-size-16);
   font-weight: 700;
   color: var(--text-strong);
 }
