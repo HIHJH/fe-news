@@ -5,6 +5,8 @@ export function renderListView(items) {
   content.className = 'list'
   content.innerHTML = ''
 
+  const fragment = document.createDocumentFragment()
+
   items.forEach(item => {
     const listItem = document.createElement('div')
     listItem.className = 'list-item'
@@ -20,6 +22,8 @@ export function renderListView(items) {
         </div>
       </div>
     `
-    content.appendChild(listItem)
+    fragment.appendChild(listItem)
   })
+
+  content.appendChild(fragment)
 }

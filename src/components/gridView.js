@@ -7,13 +7,15 @@ export function renderGridView(items) {
   content.className = 'grid'
   content.innerHTML = ''
 
+  const fragment = document.createDocumentFragment()
+
   items.forEach(item => {
     const gridItem = document.createElement('li')
     gridItem.className = 'grid-item'
     gridItem.innerHTML = `
       <a href="#"><img src="${item.image}" alt="${item.title}" class="grid-item-image"></a>
     `
-    content.appendChild(gridItem)
+    fragment.appendChild(gridItem)
   })
 
   const placeholders = Math.max(0, ITEMS_PER_PAGE - items.length)
@@ -21,6 +23,8 @@ export function renderGridView(items) {
     const placeholder = document.createElement('li')
     placeholder.className = 'grid-item placeholder'
     placeholder.setAttribute('aria-hidden', 'true')
-    content.appendChild(placeholder)
+    fragment.appendChild(placeholder)
   }
+
+  content.appendChild(fragment)
 }
