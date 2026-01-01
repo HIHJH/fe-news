@@ -32,7 +32,9 @@ function getCurrentSourceData() {
 
 function setActiveTab(viewType) {
   document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.view === viewType)
+    const isActive = btn.dataset.view === viewType
+    btn.classList.toggle('active', isActive)
+    btn.setAttribute('aria-selected', isActive)
   })
 }
 

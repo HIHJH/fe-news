@@ -12,6 +12,7 @@ export function renderGridView(items) {
   items.forEach(item => {
     const gridItem = document.createElement('li')
     gridItem.className = 'grid-item'
+    gridItem.setAttribute('role', 'listitem')
     gridItem.innerHTML = `
       <img src="${item.image}" alt="${item.title}" class="grid-item-image">
     `

@@ -8,8 +8,9 @@ export function renderListView(items) {
   const fragment = document.createDocumentFragment()
 
   items.forEach(item => {
-    const listItem = document.createElement('div')
+    const listItem = document.createElement('li')
     listItem.className = 'list-item'
+    listItem.setAttribute('role', 'article')
     listItem.innerHTML = `
       <img src="${item.image}" alt="${item.title}" class="list-item-image">
       <div class="list-item-content">
@@ -18,7 +19,7 @@ export function renderListView(items) {
           <p class="list-item-description">${item.description}</p>
         </div>
         <div class="list-item-meta">
-          <span class="list-item-date">${item.date}</span>
+          <time class="list-item-date" datetime="${item.date}">${item.date}</time>
         </div>
       </div>
     `
