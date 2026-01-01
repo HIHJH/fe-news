@@ -51,31 +51,44 @@ body {
   gap: 8px;
 }
 
+.rolling-news-column {
+  flex: 1;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+}
+
+.rolling-news-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.rolling-news-column.paused .rolling-news-item p {
+  text-decoration: underline;
+}
+
 .rolling-news-item {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex: 1;
-  min-width: 0;
+  gap: 16px;
   background-color: var(--surface-alt);
-  border: 1px solid var(--border-default);
   padding: 16px;
-  
-  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
   overflow: hidden;
-  text-overflow: ellipsis; 
+}
+
+.rolling-news-item span {
+  color: var(--text-strong);
 }
 
 .rolling-news-item p {
+  flex: 1;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.rolling-news-item p:hover {
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 /* --- 탭 영역 --- */
@@ -166,11 +179,13 @@ body {
 
 .list-item {
   display: flex;
-  gap: 16px;
-  background: var(--surface-default);
-  border: 1px solid var(--border-default);
-  border-radius: 8px;
   padding: 16px;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1 0 0;
+  border: 1px solid var(--border-default);
+  background: var(--surface-alt);
+  border-radius: 8px;
   transition: all 0.3s ease;
   cursor: pointer;
 }
