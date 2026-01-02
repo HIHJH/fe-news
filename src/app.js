@@ -5,14 +5,13 @@ import { getPaginatedData, getTotalPages, ITEMS_PER_PAGE } from './utils/paginat
 import { renderGridView } from './components/gridView.js'
 import { renderListView } from './components/listView.js'
 import { attachPaginationEvents, updatePaginationButtons } from './components/paginationControls.js'
+import { rolling } from './components/rolling.js'
 
 /**
  * TODO
  * - [week 1-2 구독 및 롤링 기능]
- * - 구독 호버 레이아웃
- * - 구독 모달 레이아웃
- * - 구독 기능
- * - 롤링 뉴스 기능
+ * - 구독 모달 레이아웃 및 기능 구현
+ * - 다크 모드 기능 구현
  */
 
 let currentPage = 1
@@ -20,10 +19,9 @@ let currentView = 'grid'
 const GRID_PAGE_LIMIT = 4
 const GRID_ITEMS_LIMIT = ITEMS_PER_PAGE * GRID_PAGE_LIMIT
 
-// 새로고침마다 데이터 섞기
-// TODO: 최적화 고민
 const shuffledData = [...newsData].sort(() => Math.random() - 0.5)
 
+// PAGE LIMIT에 맞는 데이터 소스 반환
 function getCurrentSourceData() {
   return currentView === 'grid'
     ? shuffledData.slice(0, GRID_ITEMS_LIMIT)
@@ -77,10 +75,12 @@ function bindLogoReload() {
   }
 }
 
+// 초기 페이지 렌더링 및 이벤트 바인딩
 document.addEventListener('DOMContentLoaded', () => {
-  displayTodayDate()
-  bindTabEvents()
-  bindLogoReload()
+  displayTodayDate() // 헤더에 오늘 날짜 표시
+  rolling.init() // 롤링 뉴스 초기화
+  bindTabEvents() // 탭 버튼 이벤트 바인딩
+  bindLogoReload() // 로고 클릭 리로드 바인딩
 
   attachPaginationEvents({
     onPrev: () => {
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
     }
-  })
+  }) // 페이지네이션 이벤트 바인딩
 
-  switchView('grid')
+  switchView('grid') // 기본 뷰는 그리드 뷰
 })

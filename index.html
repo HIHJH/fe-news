@@ -23,15 +23,13 @@
 
     <main>
       <!-- 롤링 뉴스 영역 -->
-      <section class="rolling-news">
-        <article class="rolling-news-item">
-          <span class="typo-display-bold-14">연합뉴스</span>
-          <p class="typo-available-medium-14">뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용뉴스내용</p>
-        </article>
-        <article class="rolling-news-item">
-          <span class="typo-display-bold-14">연합뉴스</span>
-          <p class="typo-available-medium-14">뉴스내용</p>
-        </article>
+      <section class="rolling-news" id="rolling-news" role="region" aria-label="Rolling news">
+        <div class="rolling-news-column" id="rolling-left" data-column="left">
+          <ul class="rolling-news-list" role="list"></ul>
+        </div>
+        <div class="rolling-news-column" id="rolling-right" data-column="right">
+          <ul class="rolling-news-list" role="list"></ul>
+        </div>
       </section>
 
       <!-- 언론사 탭 영역 -->
