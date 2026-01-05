@@ -71,19 +71,45 @@ body {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 16px;
   background-color: var(--surface-alt);
   padding: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  overflow: hidden;
 }
 
-.rolling-news-item span {
+/* TODO: div 태그 변경 */
+.rolling-news-item div {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+  height: 17px;
+}
+
+.rolling-news-item div div {
+  flex-direction: row;
+  animation: rolling-slide-up 1s ease;
+}
+
+.rolling-news-column.paused .rolling-news-item {
+  animation-play-state: paused;
+}
+
+@keyframes rolling-slide-up {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-34px);
+  }
+}
+
+.rolling-news-item div div span {
   color: var(--text-strong);
 }
 
-.rolling-news-item p {
+.rolling-news-item div div p {
   flex: 1;
   min-width: 0;
   overflow: hidden;

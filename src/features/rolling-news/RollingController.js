@@ -1,4 +1,5 @@
-import { newsData } from '../../data/newsData.js'
+import { newsData } from "../../data/newsData"
+import { renderRollingNews } from './views/RollingNewsView.js'
 
 const ROLLING_INTERVAL = 5000
 const RIGHT_COLUMN_DELAY = 1000
@@ -9,46 +10,19 @@ export const rolling = {
   intervalIds: { left: null, right: null },
   pauseFlags: { left: false, right: false },
 
-  renderColumn(columnId, currentIndex) {
-    const column = document.getElementById(columnId)
-    if (!column) return
-
-    const list = column.querySelector('.rolling-news-list')
-    const item = newsData[currentIndex % newsData.length]
-    
-    list.innerHTML = ''
-
-    const li = document.createElement('li')
-    const article = document.createElement('article')
-    article.className = 'rolling-news-item'
-
-    const press = document.createElement('span')
-    press.className = 'typo-display-bold-14'
-    press.textContent = item.press || 'Unknown'
-
-    const title = document.createElement('p')
-    title.className = 'typo-available-medium-14'
-    title.textContent = item.title
-
-    article.appendChild(press)
-    article.appendChild(title)
-    li.appendChild(article)
-    list.appendChild(li)
-  },
-
   animateRoll(columnId, isRight = false) {
     if (isRight) {
       this.indexRight = (this.indexRight + 1) % newsData.length
-      this.renderColumn(columnId, this.indexRight)
+      renderRollingNews(columnId, this.indexRight)
     } else {
       this.indexLeft = (this.indexLeft + 1) % newsData.length
-      this.renderColumn(columnId, this.indexLeft)
+      renderRollingNews(columnId, this.indexLeft)
     }
   },
 
   startRolling() {
-    this.renderColumn('rolling-left', this.indexLeft)
-    this.renderColumn('rolling-right', this.indexRight)
+    renderRollingNews('rolling-left', this.indexLeft)
+    renderRollingNews('rolling-right', this.indexRight)
 
     this.intervalIds.left = setInterval(() => {
       if (!this.pauseFlags.left) {
@@ -90,13 +64,6 @@ export const rolling = {
     rightColumn.addEventListener('mouseleave', () => {
       this.pauseFlags.right = false
       rightColumn.classList.remove('paused')
-    })
-
-    rollingSection.addEventListener('click', (e) => {
-      const item = e.target.closest('.rolling-news-item')
-      if (item) {
-        console.log('롤링 뉴스 클릭:', item.textContent)
-      }
     })
   },
 
