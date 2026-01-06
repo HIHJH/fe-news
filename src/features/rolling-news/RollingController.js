@@ -1,28 +1,32 @@
 import { newsData } from "../../data/newsData"
-import { renderRollingNews } from './views/RollingNewsView.js'
+import { renderRollingNews } from "./views/renderRollingNews"
 
 const ROLLING_INTERVAL = 5000
 const RIGHT_COLUMN_DELAY = 1000
 
+const ROLLING_NEWS_SIZE = 5
+const LEFT_DATA = newsData.slice(0, ROLLING_NEWS_SIZE)
+const RIGHT_DATA = newsData.slice(ROLLING_NEWS_SIZE, ROLLING_NEWS_SIZE * 2)
+
 export const rolling = {
   indexLeft: 0,
-  indexRight: 5,
+  indexRight: 0,
   intervalIds: { left: null, right: null },
   pauseFlags: { left: false, right: false },
 
   animateRoll(columnId, isRight = false) {
     if (isRight) {
-      this.indexRight = (this.indexRight + 1) % newsData.length
-      renderRollingNews(columnId, this.indexRight)
+      this.indexRight = renderRollingNews(columnId, this.indexRight, RIGHT_DATA)
     } else {
-      this.indexLeft = (this.indexLeft + 1) % newsData.length
-      renderRollingNews(columnId, this.indexLeft)
+      this.indexLeft = renderRollingNews(columnId, this.indexLeft, LEFT_DATA)
     }
   },
 
   startRolling() {
-    renderRollingNews('rolling-left', this.indexLeft)
-    renderRollingNews('rolling-right', this.indexRight)
+    if (!LEFT_DATA.length || !RIGHT_DATA.length) return
+
+    this.indexLeft = renderRollingNews('rolling-left', this.indexLeft, LEFT_DATA)
+    this.indexRight = renderRollingNews('rolling-right', this.indexRight, RIGHT_DATA)
 
     this.intervalIds.left = setInterval(() => {
       if (!this.pauseFlags.left) {

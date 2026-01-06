@@ -74,26 +74,30 @@ body {
   background-color: var(--surface-alt);
   padding: 16px;
   cursor: pointer;
-}
+} 
 
 /* TODO: div 태그 변경 */
 .rolling-news-item div {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
-  overflow: hidden;
-  height: 17px;
+  height: 18px;
 }
 
-.rolling-news-item div div {
+.rolling-wrapper > div {
   flex-direction: row;
-  animation: rolling-slide-up 1s ease;
+  height: 18px;
+  color: var(--text-default)
 }
 
 .rolling-news-column.paused .rolling-news-item {
   animation-play-state: paused;
+}
+
+.rolling-news-column.paused .rolling-wrapper {
+  animation-play-state: paused;
+  color: var(--text-strong);
 }
 
 @keyframes rolling-slide-up {
