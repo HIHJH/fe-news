@@ -1,17 +1,11 @@
 export function renderListView(items) {
-  const content = document.getElementById('content')
+  const content = document.getElementById('news-contents')
   if (!content) return
 
   content.className = 'list'
-  content.innerHTML = ''
 
-  const fragment = document.createDocumentFragment()
-
-  items.forEach(item => {
-    const listItem = document.createElement('li')
-    listItem.className = 'list-item'
-    listItem.setAttribute('role', 'article')
-    listItem.innerHTML = `
+  const listItems = items.map(item => `
+    <li class="list-item" role="article">
       <img src="${item.image}" alt="${item.title}" class="list-item-image">
       <div class="list-item-content">
         <div>
@@ -22,9 +16,8 @@ export function renderListView(items) {
           <time class="list-item-date" datetime="${item.date}">${item.date}</time>
         </div>
       </div>
-    `
-    fragment.appendChild(listItem)
-  })
+    </li>
+  `).join('')
 
-  content.appendChild(fragment)
+  content.innerHTML = listItems
 }

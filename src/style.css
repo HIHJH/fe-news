@@ -71,19 +71,60 @@ body {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 16px;
   background-color: var(--surface-alt);
   padding: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  overflow: hidden;
+} 
+
+/* TODO: div 태그 변경 */
+.rolling-news-item div {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 18px;
 }
 
-.rolling-news-item span {
+.rolling-wrapper > div {
+  flex-direction: row;
+  height: 18px;
+  color: var(--text-default)
+}
+
+.rolling-news-column.paused .rolling-news-item {
+  animation-play-state: paused;
+}
+
+.rolling-news-column.paused .rolling-wrapper {
+  animation-play-state: paused;
   color: var(--text-strong);
 }
 
-.rolling-news-item p {
+@keyframes rolling-slide-up-a {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-34px); }
+}
+
+@keyframes rolling-slide-up-b {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-34px); }
+}
+
+
+@keyframes rolling-slide-up {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-34px);
+  }
+}
+
+.rolling-news-item div div span {
+  color: var(--text-strong);
+}
+
+.rolling-news-item div div p {
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -294,6 +335,35 @@ body {
 
 .pagination-btn:disabled {
   display: none;
+}
+
+/* --- 모달 스타일 --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal {
+  width: 320px;
+  padding: 24px;
+  background: var(--surface-default);
+  border: 1px solid var(--border-default);
+  box-shadow: 0 4px 2px 0 rgba(20, 33, 43, 0.02), 0 2px 18px 0 rgba(20, 33, 43, 0.08);
+}
+
+.modal-content h3 {
+  margin-bottom: 16px;
+  color: var(--text-strong);
 }
 
 /* 테마 변경 토글
