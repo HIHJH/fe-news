@@ -16,10 +16,6 @@ function gridViewTemplate(item){
   `
 }
 
-function placeholderTemplate(){
-  return `<li class="grid-item placeholder" aria-hidden="true"></li>`
-}
-
 function onClickSubscribe(e) {
   const btn = e.target.closest('.subscribe-btn')
   if (!btn) return
@@ -41,9 +37,10 @@ export function renderGridView(items) {
 
   const gridItems = items.map(gridViewTemplate).join('')
 
-  const placeholders = Math.max(0, ITEMS_PER_PAGE - items.length)
-  const placeholderItems = Array(placeholders).fill(placeholderTemplate).join('')
-
+  const placeholdersCount = Math.max(0, ITEMS_PER_PAGE - items.length)
+  const placeholderTemplate = `<li class="grid-item placeholder" aria-hidden="true"></li>`
+  const placeholderItems = placeholderTemplate.repeat(placeholdersCount)
+  
   content.innerHTML = gridItems + placeholderItems
 
   content.addEventListener('click', onClickSubscribe)
