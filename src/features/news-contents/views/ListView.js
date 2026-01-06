@@ -1,5 +1,5 @@
 export function renderListView(items) {
-  const content = document.getElementById('content')
+  const content = document.getElementById('news-contents')
   if (!content) return
 
   content.className = 'list'
