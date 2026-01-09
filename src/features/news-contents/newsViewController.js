@@ -45,8 +45,8 @@ function render(state) {
 function attachViewModeEvents() {
   document.querySelectorAll('.tab-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      store.dispatch({ type: ACTION.SET_VIEW, payload: viewType })
-      setViewMode(viewType)
+      store.dispatch({ type: ACTION.SET_VIEW, payload: btn.dataset.view })
+      setViewMode(btn.dataset.view)
     })
   })
 }
