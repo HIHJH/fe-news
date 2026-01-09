@@ -8,7 +8,7 @@ import { store } from '../../stores/store.js'
 import { selectPageSlice, selectTotalPages } from '../../stores/selectors.js'
 import { ITEMS_PER_PAGE, ACTION, VIEW_MODE } from '../../constants/constants.js'
 
-function setActiveTab(viewType) {
+function setViewMode(viewType) {
   document.querySelectorAll('.tab-btn').forEach((btn) => {
     const isActive = btn.dataset.view === viewType
     btn.classList.toggle('active', isActive)
@@ -16,7 +16,7 @@ function setActiveTab(viewType) {
   })
 }
 
-function setActiveFilterTab(tabType) {
+function setFilterTab(tabType) {
   const buttons = document.querySelectorAll('.tab-left-btn')
   const isSubscribed = tabType === 'SUBSCRIBED'
   buttons.forEach((btn, idx) => {
@@ -42,36 +42,32 @@ function render(state) {
   updatePaginationButtons({ currentPage: state.ui.page, totalPages })
 }
 
-function switchView(viewType) {
-  store.dispatch({ type: ACTION.SET_VIEW, payload: viewType })
-  setActiveTab(viewType)
-}
-
-function bindTabEvents() {
+function attachViewModeEvents() {
   document.querySelectorAll('.tab-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      switchView(btn.dataset.view)
+      store.dispatch({ type: ACTION.SET_VIEW, payload: viewType })
+      setViewMode(viewType)
     })
   })
 }
 
-function bindFilterTabEvents() {
+function attachFilterTabEvents() {
   const buttons = document.querySelectorAll('.tab-left-btn')
   if (!buttons.length) return
   const [allBtn, subscribedBtn] = buttons
   allBtn.addEventListener('click', () => {
     store.dispatch({ type: ACTION.SET_TAB, payload: 'ALL' })
-    setActiveFilterTab('ALL')
+    setFilterTab('ALL')
   })
   subscribedBtn.addEventListener('click', () => {
     store.dispatch({ type: ACTION.SET_TAB, payload: 'SUBSCRIBED' })
-    setActiveFilterTab('SUBSCRIBED')
+    setFilterTab('SUBSCRIBED')
   })
 }
 
 export function initNewsView() {
-  bindTabEvents()
-  bindFilterTabEvents()
+  attachViewModeEvents()
+  attachFilterTabEvents()
 
   attachPaginationEvents({
     onPrev: () => {
@@ -98,7 +94,7 @@ export function initNewsView() {
 
   // 초기 렌더링
   const initial = store.getState()
-  setActiveTab(initial.ui.view)
-  setActiveFilterTab(initial.ui.tab)
+  setViewMode(initial.ui.view)
+  setFilterTab(initial.ui.tab)
   render(initial)
 }
